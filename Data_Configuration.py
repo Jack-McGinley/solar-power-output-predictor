@@ -35,7 +35,7 @@ class Data_Config:
 
     def ML_Info(self):
         #Remove Year and Minute columns
-        df = self.sample.drop(columns=['Year', 'Minute'], errors='ignore')
+        df = self.sample.drop(columns=['Year', 'Minute', 'DHI', 'DNI', 'Wind Speed', 'Relative Humidity'], errors='ignore')
         #Remove rows where Hour is between 0 and 8 (inclusive)
         if 'Hour' in df.columns:
             df = df[df['Hour'] > 8]
@@ -71,12 +71,14 @@ class Data_Config:
         data = self.power()
         return data
     
+    #configure method to execute all steps and save to new CSV in current directory
     def configure(self):
         self.load_file()
         self.clean_dataset()
         self.ML_Info()
         data = self.power()
-        return data
+        output_file = os.path.splitext(self.nsrdb_file)[0] + '_configured.csv'
+        data.to_csv(output_file, index=False)
 
 #Test the Data_Config class
 '''
@@ -96,8 +98,8 @@ if __name__ == "__main__":
 '''
 
 
-#Configure data using configure method
-dc = Data_Config("C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv")
-data_ml = dc.configure()
-data_ml.to_csv("C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_configured.csv", index=False)
-
+#Configure data using configure method"C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv"
+if __name__ == "__main__":
+    dc = Data_Config("C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv")
+    data_ml = dc.configure()
+    data_ml.to_csv("C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_configured.csv", index=False)
