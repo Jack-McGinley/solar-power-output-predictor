@@ -79,6 +79,7 @@ class Data_Config:
         data = self.power()
         output_file = os.path.splitext(self.nsrdb_file)[0] + '_configured.csv'
         data.to_csv(output_file, index=False)
+        return output_file
 
 #Test the Data_Config class
 '''
@@ -101,5 +102,5 @@ if __name__ == "__main__":
 #Configure data using configure method"C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv"
 if __name__ == "__main__":
     dc = Data_Config("C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv")
-    data_ml = dc.configure()
-    data_ml.to_csv("C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_configured.csv", index=False)
+    data = dc.configure()
+    #data_ml.to_csv("C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_configured.csv", index=False)
