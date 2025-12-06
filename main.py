@@ -1,7 +1,9 @@
 #Import Classes from other modules
 from Data_Configuration import Data_Config as DC
 from PlotAnalysis import PlotAnalysis as PA
+from run_model import RunModel as RM
 import raise_input
+import time
 
 file_path = "C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv"
 
@@ -25,19 +27,18 @@ def main():
         #Save figure of plot analysis
         plotter.plot_power_vs_time()
         #Notify user of saved file and configured file
+        time.sleep(1)  # Pause for 1 second for better user experience
         print(f'Configured data saved to {csv_file}')
-        print('Plot saved as solar_power_output.png')
-        #Ask user if they would like to try new parameters
-        print('Would you like to try new parameters? (y/n): ')
-        choice = input()
-        if choice.lower() == 'y':
-            continue
-        elif choice.lower() == 'n':
-            print('Exiting program. Goodbye!')
-            break
-        else:
-            print('Invalid input.')
-            break
+        print('Plot of average power per month saved as solar_power_output.png')
+        #Pass to run_model.py for training and prediction
+        print('Running model training and prediction...')
+        time.sleep(2)  # Pause for 2 seconds for better user experience
+        runner = RM(csv_file)
+        #Compute and display statistics
+        time.sleep(1)  # Pause for 1 second for better user experience
+        runner.compute_stats()
+        runner.save_monthly_summary()
+        print('Exiting Program, Goodbye!')
 
 if __name__ == "__main__":
     main()

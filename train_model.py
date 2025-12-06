@@ -1,3 +1,9 @@
+import os
+import time
+
+# Allow duplicate OpenMP runtimes (workaround for libiomp5md.dll error)
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
 import torch
 
 def train_model(data):
@@ -9,13 +15,11 @@ def train_model(data):
 
 
     #Setting values
-
     lr = .000001
     loss_value = 10000
     epoch = 0
 
     #Training
-
     while loss_value > .01 and epoch < 5000:
 
         y_pred = x @ w
@@ -26,7 +30,6 @@ def train_model(data):
         loss.backward()
 
         #Update w
-
         with torch.no_grad():
             w -= lr * w.grad
 
@@ -34,21 +37,15 @@ def train_model(data):
         w.grad.zero_()
 
         #Convert loss to a regular number 
-
         loss_value = loss.item()
 
         #Counting steps
-
         epoch +=1
 
-
-    print("Training Complete")
+    print("Training Complete!")
     print(f"Final Weight : {w.item()}")
-    print(f"Final Loss:{loss_value}")
+    print(f"Final Loss: {loss_value}")
     print(f"Total Epochs: {epoch}")
+    time.sleep(1)  # Pause for 1 second for better user experience
 
     return w
-
-
-
-"""Hahahahaha"""
