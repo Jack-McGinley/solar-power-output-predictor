@@ -1,6 +1,7 @@
 #Import Classes from other modules
 from Data_Configuration import Data_Config as DC
 from PlotAnalysis import PlotAnalysis as PA
+import raise_input
 
 file_path = "C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv"
 
@@ -14,10 +15,7 @@ def main():
         if input('Use default parameters? (y/n): ') == 'y':
             config = DC(file_path) #Use default parameters in Data_Config class 
         else:
-            A = float(input('Area: '))
-            E = float(input('Efficiency: '))
-            T = float(input('Temperature Coefficient: '))
-            N = float(input('NOCT: '))
+            A, E, T, N = raise_input.get_user_input()
 
             config = DC(file_path, A, E, T, N) #Pass attributes to Data_Config class
         #Return configured CSV file, including power output based on user parameters
