@@ -3,6 +3,13 @@ import os
 #print(os.getcwd())
 
 class Data_Config:
+    """
+    Data_Config class to handle loading, cleaning, and configuring NSRDB data
+    for solar panel power output prediction. It passes user-defined solar panel parameters
+    or defaults if none are provided. Removes unnecessary columns and rows with missing data,
+    and calculates power output based on the provided parameters. It will save the configured
+    dataset to a new CSV file called '<original_filename>_configured.csv'.
+    """
     def __init__(self, nsrdb_file, area=1.6, efficiency=0.2, temp_coeff=-0.0045, noct=45):
         #attribute for nsrdb file path
         self.nsrdb_file = nsrdb_file
@@ -19,12 +26,23 @@ class Data_Config:
         return self.sample
     
     def load_file(self):
+        """
+        Load the entire NSRDB file after skipping the first 2 metadata rows.
+        Returns:
+            pd.DataFrame: The loaded data.
+        """
         #load file after skipping first 2 metadata rows
         self.sample = pd.read_csv(self.nsrdb_file, header=2)
         #return sample dataframe for testing
         return self.sample
 
     def clean_dataset(self):
+        """
+        Clean the dataset by removing columns with all NaN values and rows with any NaN values
+        in the 'GHI' and 'Temperature' columns.
+        Returns:
+            pd.DataFrame: The cleaned data.
+        """
         #remove columns with all NaN values
         df_cleaned_columns = self.sample.dropna(how='all', axis=1)
         #remove rows with any NaN values
@@ -34,6 +52,12 @@ class Data_Config:
         return self.sample
 
     def ML_Info(self):
+        """
+        Prepare the dataset for machine learning by removing unnecessary columns
+        and filtering out rows where the 'Hour' is between 0 and 8 (inclusive).
+        Returns:
+            pd.DataFrame: The dataset prepared for machine learning.
+        """
         #Remove Year and Minute columns
         df = self.sample.drop(columns=['Year', 'Minute', 'DHI', 'DNI', 'Wind Speed', 'Relative Humidity'], errors='ignore')
         #Remove rows where Hour is between 0 and 8 (inclusive)
@@ -45,6 +69,11 @@ class Data_Config:
         return self.sample
 
     def power(self):
+        """
+        Calculate power output using the solar panel parameters and dataset.
+        Returns:
+            pd.DataFrame: The dataset with an added 'Power' column.
+        """
         #Calculate power using Solar Panel Module parameters and dataset
         df = self.sample.copy() #Use a copy to avoid modifying original sample, parenthesis added to ensure df is a dataframe and not a function
         #Set parameters
@@ -73,6 +102,12 @@ class Data_Config:
     
     #configure method to execute all steps and save to new CSV in current directory
     def configure(self):
+        """
+        Execute all configuration steps and save the resulting dataset to a new CSV file in the current directory.
+        Returns:
+            str: The path to the configured CSV file.
+            The resulting dataset is saved to '<original_filename>_configured.csv'.
+        """
         self.load_file()
         self.clean_dataset()
         self.ML_Info()
