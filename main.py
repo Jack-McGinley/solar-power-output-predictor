@@ -5,10 +5,16 @@ from run_model import RunModel as RM
 import raise_input
 import time
 
-file_path = "C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv"
+file_path = "C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv" #file path to raw NSRDB data
 
 #main function to execute program
 def main():
+    """
+    Main function to run the solar panel power output prediction program.
+    Accepts user input for solar panel parameters, configures data, generates plots,
+    and runs the prediction model. Outputs results of configured dataset and monthly
+    power summaries of both true and predicted power outputs and saves files accordingly.
+    """
     #Provide user with program information
     print("This program uses data collected from the NSRDB to predict the output power of solar panel modules.")
     print('Please enter parameters for the solar panel model you wish to simulate.')

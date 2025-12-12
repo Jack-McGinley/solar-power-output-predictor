@@ -8,9 +8,23 @@ import os
 #csv_path ="C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024_configured.csv"
 
 def compare_monthly(true_list, pred_list):
+    """
+    Function to compare true vs predicted monthly average power outputs.
+    Args:
+        true_list (list): List of true monthly average power outputs.
+        pred_list (list): List of predicted monthly average power outputs.
+    Returns:
+        list: List of absolute differences between true and predicted values.
+    """
     return list(map(lambda t, p: abs(t-p), true_list, pred_list))
 
 class RunModel:
+    """
+    RunModel class to handle training and prediction of solar panel power output
+    using the SolarPowerModel and train_model classes. It computes statistics
+    comparing true and predicted power outputs on a monthly basis and saves
+    the results to a CSV file.
+    """
     def __init__(self, csv_path):
         #Load data and train model
         self.csv_path = csv_path
@@ -20,6 +34,12 @@ class RunModel:
         self.monthly_summary = None
 
     def compute_stats(self):
+        """
+        Compute statistics comparing true and predicted power outputs on a monthly basis.
+        Returns:
+            pd.DataFrame: A DataFrame containing the true monthly average, predicted monthly average,
+            and their differences.
+        """
         # Convert tensor (or similar) to a scalar
         try:
             w_value = self.w.item()
@@ -57,6 +77,11 @@ class RunModel:
         return self.monthly_summary
 
     def save_monthly_summary(self, output_path=None):
+        """
+        Save the monthly comparison DataFrame to a CSV file.
+        Args:
+            output_path (str, optional): The path to save the CSV file. If None, saves in the same folder as the input CSV with the name 'monthly_summary.csv'.
+        """
         #Save the monthly comparison DataFrame to a CSV file.
         if self.monthly_summary is None:
             raise ValueError("Error: compute_stats() must be run before saving monthly summary.")

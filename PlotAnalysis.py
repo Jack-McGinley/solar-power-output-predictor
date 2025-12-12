@@ -5,20 +5,36 @@ from SolarPowerModel import SolarPowerModel
 csv_path="C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024_configured.csv"
 
 class PlotAnalysis:
+    """
+    PlotAnalysis class to handle plotting and analysis of solar panel power output data.
+    It uses the SolarPowerModel class to load the configured data and uses the mean aggregate 
+    function to calculate average power by month and plot power output over time for the
+    configured dataset.
+    """
     def __init__(self, csv_path):
         self.solarpowermodel = SolarPowerModel(csv_path)
         self.data = self.solarpowermodel.load_data(usecols=['Month', 'Power'])
 
     def average_power_by_month(self):
-        avg_power = self.data.groupby('Month')['Power'].mean()
+        """
+        Calculate the average power output by month.
+        Returns:
+            pd.Series: The average power output for each month.
+        """
+        avg_power = self.data.groupby('Month')['Power'].mean() #Calculate average power by month
         return avg_power
     
     def plot_power_vs_time(self):
-        avg_power = self.average_power_by_month()
+        """
+        Plot the average power output by month over time.
+        Saves the plot as 'solar_power_output.png'.
+        """
+        avg_power = self.average_power_by_month() #Get average power by month
 
-        if 'Power' not in self.data.columns or 'Month' not in self.data.columns:
+        if 'Power' not in self.data.columns or 'Month' not in self.data.columns: #ensure appropriate columns exist
             raise ValueError("Data must contain 'Power' and 'Month' columns for plotting.")
 
+        #plot the average power by month
         plt.figure(figsize=(10, 6))
         plt.plot(avg_power.index, avg_power.values, label='Average Power by Month', color='orange', marker='o')
         plt.xlabel('Month of the Year')
