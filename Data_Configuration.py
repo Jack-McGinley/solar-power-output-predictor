@@ -115,27 +115,3 @@ class Data_Config:
         output_file = os.path.splitext(self.nsrdb_file)[0] + '_configured.csv'
         data.to_csv(output_file, index=False)
         return output_file
-
-#Test the Data_Config class
-'''
-if __name__ == "__main__":
-    dc = Data_Config("C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv")
-    #sample = dc.load_sample()
-    #sample_cleaned = dc.clean_dataset()
-    #sample_ml = dc.ML_Info()
-    sample_output = dc.configure_sample()
-    #print(sample.to_string())
-    #print(sample_ml.to_string())
-    print(sample_output.to_string())
-
-    print("Raw shape:", sample.shape)
-    print("Cleaned shape:", sample_cleaned.shape)
-    print("ML shape:", sample_ml.shape)
-'''
-
-
-#Configure data using configure method"C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv"
-if __name__ == "__main__":
-    dc = Data_Config("C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv")
-    data = dc.configure()
-    #data_ml.to_csv("C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_configured.csv", index=False)

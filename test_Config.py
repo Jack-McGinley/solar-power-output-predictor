@@ -2,7 +2,7 @@ import pytest
 import pandas as pd
 from Data_Configuration import Data_Config
 
-csv_path = "C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv"
+csv_path = "C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024.csv" #Path to sample NSRDB CSV file for testing
 
 @pytest.fixture
 def data_config():
