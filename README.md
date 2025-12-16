@@ -9,6 +9,6 @@ To execute the program, clone the git repository to a directory. Ensure all file
 
 Contributions
 
-Jack - data configuration, plotting and analysis, main executable file, pytest.
+Jack - data configuration, plotting and analysis, main executable file, raise_input module, pytest.
 
 Ishbat- SolarPowerModel, training the model (train_model), run_model
