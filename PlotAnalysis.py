@@ -2,8 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from SolarPowerModel import SolarPowerModel
 
-csv_path="C:\\Users\\jackp\\Documents\\Python\\EE551\\Project\\nsrdb_2024_configured.csv"
-
 class PlotAnalysis:
     """
     PlotAnalysis class to handle plotting and analysis of solar panel power output data.
@@ -48,13 +46,3 @@ class PlotAnalysis:
         plt.grid(False)
         #plt.show()
         plt.savefig('solar_power_output.png')
-
-if __name__ == "__main__":
-    plotter = PlotAnalysis(csv_path)
-    plotter.plot_power_vs_time()
-
-    '''
-    avg_power = plotter.average_power_by_month()
-    print("Average Power by Month:")
-    print(avg_power)
-    '''
