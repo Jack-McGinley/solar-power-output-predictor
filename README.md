@@ -8,5 +8,7 @@ Our program uses weather data provided by the National Solar Radiation Database 
 To execute the program, clone the git repository to a directory. Ensure all files are present, as well as the nsrdb_2024.csv file. You can run the program by calling the main.ipynb module. In the main.ipynb module change the file_path variable to the appropriate file path on your system to the nrsdb csv file. You will also need to ensure all appropriate libraries are installed.
 
 Contributions
+
 Jack - data configuration, plotting and analysis, main executable file, pytest.
+
 Ishbat- SolarPowerModel, training the model (train_model), run_model
